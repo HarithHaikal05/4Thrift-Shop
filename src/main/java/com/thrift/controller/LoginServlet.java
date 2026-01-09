@@ -4,60 +4,50 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import com.thrift.utils.DBConnection;
-import com.thrift.model.User;
+import javax.servlet.http.*;
 
-@WebServlet("/LoginServlet") // This means the HTML form will post to "LoginServlet"
+import com.thrift.model.User;
+import com.thrift.utils.DBConnection;
+
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        // 1. Get data from the HTML form (Member 3 will build the form)
-        String uName = request.getParameter("username");
-        String pass = request.getParameter("password");
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
         try {
-            // 2. Connect to Database
             Connection con = DBConnection.getConnection();
-            
-            // 3. Check if user exists
-            String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String sql = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, uName);
-            ps.setString(2, pass);
-            
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                // 4. User found! Create a Session
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
-                user.setRole(rs.getString("role")); // Important: Admin vs Customer
-                
-                HttpSession session = request.getSession();
-                session.setAttribute("currentUser", user); // Save user in "memory"
+                user.setRole(rs.getString("role"));
 
-                // 5. Redirect based on Role
-                if ("admin".equals(user.getRole())) {
-                    response.sendRedirect("admin_dashboard.jsp"); // Member 4 will build this
-                } else {
-                    response.sendRedirect("index.jsp"); // Member 2 is building this
-                }
+                HttpSession session = request.getSession();
+                session.setAttribute("currentUser", user);
+
+                response.sendRedirect("html/homepage.html");
             } else {
-                // 6. Login Failed
-                response.sendRedirect("login.jsp?error=Invalid Credentials");
+                response.sendRedirect("html/signup&login.html?error=invalid");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("login.jsp?error=Server Error");
+            response.sendRedirect("html/signup&login.html?error=server");
         }
     }
 }
