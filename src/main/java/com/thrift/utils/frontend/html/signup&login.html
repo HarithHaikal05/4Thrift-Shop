@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../css/signup&login.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth - 4THRIFT</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../css/signup&login.css">
+
+    <style>
+        /* --- INTERNAL CSS FOR THE COMBINED LOGIC --- */
+        /* (You can move this to your signup&login.css file later) */
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Nav Bar */
+        nav {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-family: 'Anton', sans-serif; font-size: 2rem; letter-spacing: 1px; }
+        .nav-links a { color: #fff; text-decoration: none; margin-left: 20px; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; opacity: 0.7; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: #ff0000; }
+
+        /* Centered Box */
+        .auth-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #111 0%, #000 70%);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            border: 1px solid #222; /* Subtle border */
+            background-color: #050505;
+        }
+
+        /* TOGGLE BUTTONS */
+        .auth-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #666;
+            font-family: 'Anton', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-btn.active {
+            color: #fff;
+            border-bottom: 3px solid #ff0000;
+            margin-bottom: -2px; /* Overlap the grey line */
+        }
+
+        .toggle-btn:hover {
+            color: #fff;
+        }
+
+        /* FORMS */
+        .form-section {
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .form-section.active {
+            display: block; /* Show when active */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Inputs */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; font-size: 0.75rem; color: #888; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
+        .form-group input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #333;
+            padding: 10px 0;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-group input:focus { border-bottom-color: #ff0000; }
+
+        /* Button */
+        .action-btn {
+            width: 100%;
+            padding: 18px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .action-btn:hover { background-color: #cc0000; }
+
+        /* Error Box */
+        .error-msg {
+            color: #ff4444;
+            border: 1px solid #ff4444;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            display: none; 
+            background: rgba(255, 0, 0, 0.05);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">4THRIFT</div>
+        <div class="nav-links">
+            <a href="homepage.html">Home</a>
+            <a href="homepage.html#shop">Shop</a>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            
+            <div id="error-box" class="error-msg"></div>
+
+            <div class="auth-toggle">
+                <button class="toggle-btn active" onclick="switchForm('login')">Login</button>
+                <button class="toggle-btn" onclick="switchForm('signup')">Sign Up</button>
+            </div>
+
+            <div id="login-form" class="form-section active">
+                <form action="../../../../../controller/LoginServlet" method="POST">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit" class="action-btn">ENTER STORE</button>
+                </form>
+            </div>
+
+            <div id="signup-form" class="form-section">
+                <form action="../../../../../controller/RegisterServlet" method="POST">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <button type="submit" class="action-btn">CREATE ACCOUNT</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 1. Logic to switch between Login and Signup
+        function switchForm(type) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const btns = document.querySelectorAll('.toggle-btn');
+
+            if (type === 'login') {
+                loginForm.classList.add('active');
+                signupForm.classList.remove('active');
+                btns[0].classList.add('active'); // Login button
+                btns[1].classList.remove('active'); // Signup button
+            } else {
+                loginForm.classList.remove('active');
+                signupForm.classList.add('active');
+                btns[0].classList.remove('active');
+                btns[1].classList.add('active');
+            }
+        }
+
+        // 2. Logic to check URL for Errors (e.g., ?error=Invalid Credentials)
+        const urlParams = new URLSearchParams(window.location.search);
+        const error = urlParams.get('error');
+        const msg = urlParams.get('msg'); // For success messages
+        const box = document.getElementById('error-box');
+
+        if (error) {
+            box.style.display = 'block';
+            box.innerText = error;
+            // If error is related to registration, switch to signup tab automatically? 
+            // Optional: switchForm('signup');
+        } else if (msg) {
+            box.style.display = 'block';
+            box.style.color = '#00ff00'; // Green for success
+            box.style.borderColor = '#00ff00';
+            box.innerText = msg;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+/* 1. IMPORT FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap');
+
+/* 2. GLOBAL RESET */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000; /* Void Black */
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 3. NAVIGATION BAR */
+nav {
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+}
+
+.logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+    color: #ff0000; /* Thrift Red */
+}
+
+/* 4. AUTH CONTAINER (The Main Box) */
+.auth-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #111 0%, #000 70%);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    border: 1px solid #222;
+    background-color: #050505;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* 5. TOGGLE BUTTONS (Login / Sign Up) */
+.auth-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+}
+
+.toggle-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #666;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.toggle-btn.active {
+    color: #fff;
+    border-bottom: 3px solid #ff0000; /* Red underline for active tab */
+    margin-bottom: -2px; /* Overlaps the grey line */
+}
+
+.toggle-btn:hover {
+    color: #fff;
+}
+
+/* 6. FORM ANIMATIONS */
+.form-section {
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.4s ease;
+}
+
+.form-section.active {
+    display: block; /* Visible when active */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 7. INPUT FIELDS */
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    padding: 10px 0;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-bottom-color: #ff0000; /* Glows red when typing */
+}
+
+/* 8. ACTION BUTTON (Login / Create Account) */
+.action-btn {
+    width: 100%;
+    padding: 18px;
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+/* 9. ERROR MESSAGES */
+.error-msg {
+    color: #ff4444;
+    border: 1px solid #ff4444;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    background: rgba(255, 0, 0, 0.05);
+    display: none; /* Controlled by JavaScript */
+}
