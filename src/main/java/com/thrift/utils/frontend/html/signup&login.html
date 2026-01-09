@@ -154,7 +154,6 @@
             4THRIFT
         </a>
         <div class="nav-links">
-            <a href="cartpage.html">Shop</a>
         </div>
     </nav>
 
@@ -203,44 +202,7 @@
         </div>
     </div>
 
-    <script>
-        // 1. Logic to switch between Login and Signup
-        function switchForm(type) {
-            const loginForm = document.getElementById('login-form');
-            const signupForm = document.getElementById('signup-form');
-            const btns = document.querySelectorAll('.toggle-btn');
-
-            if (type === 'login') {
-                loginForm.classList.add('active');
-                signupForm.classList.remove('active');
-                btns[0].classList.add('active'); // Login button
-                btns[1].classList.remove('active'); // Signup button
-            } else {
-                loginForm.classList.remove('active');
-                signupForm.classList.add('active');
-                btns[0].classList.remove('active');
-                btns[1].classList.add('active');
-            }
-        }
-
-        // 2. Logic to check URL for Errors (e.g., ?error=Invalid Credentials)
-        const urlParams = new URLSearchParams(window.location.search);
-        const error = urlParams.get('error');
-        const msg = urlParams.get('msg'); // For success messages
-        const box = document.getElementById('error-box');
-
-        if (error) {
-            box.style.display = 'block';
-            box.innerText = error;
-            // If error is related to registration, switch to signup tab automatically? 
-            // Optional: switchForm('signup');
-        } else if (msg) {
-            box.style.display = 'block';
-            box.style.color = '#00ff00'; // Green for success
-            box.style.borderColor = '#00ff00';
-            box.innerText = msg;
-        }
-    </script>
+    <script src="../js/signup&loginpage.js"></script>
 
 </body>
 </html>
