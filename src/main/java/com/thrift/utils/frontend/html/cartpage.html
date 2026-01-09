@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4THRIFT | Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/cartpage.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">4THRIFT</div>
+    <a href="homepage.html">← Continue Shopping</a>
+  </nav>
+
+  <!-- CART -->
+  <section class="cart">
+    <h1>YOUR CART</h1>
+
+    <div class="cart-item">
+      <img src="https://via.placeholder.com/120x150">
+      
+      <div class="item-info">
+        <h3>Vintage Denim Jacket</h3>
+        <p>RM <span class="price">59</span></p>
+      </div>
+
+      <div class="quantity-control">
+        <button class="minus">−</button>
+        <span class="quantity">1</span>
+        <button class="plus">+</button>
+      </div>
+
+      <div class="item-total">
+        RM <span class="itemTotal">59</span>
+      </div>
+    </div>
+
+    <!-- CART SUMMARY -->
+    <div class="cart-summary">
+      <h2>Total: RM <span id="cartTotal">59</span></h2>
+      <a href="checkoutpage.html">
+        <button class="checkout-btn">CHECKOUT</button>
+      </a>
+    </div>
+  </section>
+
+  <script src="../js/cartpage.js"></script>
+</body>
+</html>
