@@ -194,4 +194,137 @@ body {
   margin-top: 6px;
 }
 
+/* PINTEREST */
+.pinterest-section {
+  padding: 80px 0;
+  background: #000;
+}
+
+.pinterest-section h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 3px;
+}
+
+.pinterest-slider {
+  display: flex;
+  gap: 32px;
+  padding: 0 40px;
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.pinterest-slider iframe {
+  flex: 0 0 auto;
+  width: 450px;
+  height: 900px;
+
+  border-radius: 18px;
+  scroll-snap-align: start;
+}
+
+.pinterest-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+  .pinterest-slider iframe {
+    width: 80vw;
+    height: 700px;
+  }
+}
+
+.site-footer {
+  background: #000;
+  color: #aaa;
+  padding: 80px 40px 30px;
+  border-top: 1px solid #222;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: 3px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+
+.footer-text {
+  max-width: 260px;
+  line-height: 1.6;
+}
+
+.footer-col h4 {
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col li {
+  margin-bottom: 10px;
+}
+
+.footer-col a {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+  color: #fff;
+}
+
+.social-links li {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.footer-bottom {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #222;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer {
+    text-align: center;
+  }
+
+  .footer-text {
+    margin: 0 auto;
+  }
+}
+
+
 
