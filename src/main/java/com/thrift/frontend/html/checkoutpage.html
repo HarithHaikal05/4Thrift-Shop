@@ -16,9 +16,10 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="logo">4THRIFT</div>
+    <a href="homepage.html" class="logo">4THRIFT</a>
   </nav>
 
+   <!-- CHECKOUT -->
   <section class="checkout">
 
     <h1>CHECKOUT</h1>
@@ -68,12 +69,22 @@
     </div>
 
     <!-- PAY BUTTON -->
-    <button class="pay-btn" id="payBtn">PAY NOW</button>
+    <button type="button" id="payBtn">Pay Now</button>
 
-    <!-- SUCCESS MESSAGE -->
-    <p class="success-msg" id="successMsg">
-      ✅ Payment successful! Redirecting to homepage...
-    </p>
+  <script>
+   document.getElementById("payBtn").addEventListener("click", function (e) {
+    e.preventDefault(); // stop form submit
+
+    const userConfirmed = confirm(
+      "✅ Payment successful!\n\nClick OK to return to homepage."
+    );
+
+    if (userConfirmed) {
+      window.location.href = "homepage.html";
+
+    }
+   });
+  </script>
 
   </section>
 
