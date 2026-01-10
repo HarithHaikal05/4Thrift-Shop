@@ -208,3 +208,22 @@ nav {
     font-size: 1.2rem;
     margin-left: 20px;
 }
+/* --- NEW: CONFIRM RECEIPT BUTTON --- */
+.confirm-btn {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 15px; /* Space between badge and button */
+    transition: background-color 0.3s;
+}
+
+.confirm-btn:hover {
+    background-color: #cc0000;
+}
