@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard | 4Thrift</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+        .form-container { background: white; padding: 20px; width: 400px; margin: auto; border-radius: 8px; }
+        input, select, textarea { width: 100%; margin: 10px 0; padding: 8px; box-sizing: border-box; }
+        button { background: #e67e22; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; }
+        #preview { width: 100%; display: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Product</h2>
+        <form action="../../AdminProductServlet" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Product Name" required>
+            <input type="number" name="price" step="0.01" placeholder="Price (RM)" required>
+            <input type="number" name="stock" placeholder="Stock Quantity" required>
+            
+            <select name="category">
+                <option value="Top">Tops</option>
+                <option value="Bottom">Bottoms</option>
+                <option value="Outerwear">Outerwear</option>
+            </select>
+
+            <select name="size">
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+            </select>
+
+            <textarea name="description" placeholder="Product Description"></textarea>
+            
+            <label>Upload Image:</label>
+            <input type="file" name="image" id="imgInp" accept="image/*" required>
+            <img id="preview" src="#">
+
+            <button type="submit">Upload Product</button>
+        </form>
+    </div>
+
+    <script>
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files;
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
