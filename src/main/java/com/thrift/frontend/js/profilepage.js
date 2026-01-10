@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
      AUTH GUARD (FRONTEND)
   ================================ */
   if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "signup&login.html?error=Please login first";
+    window.location.href = "signupLoginpage.html?error=Please login first";
     return;
   }
 
