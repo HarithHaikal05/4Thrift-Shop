@@ -62,3 +62,25 @@ document.addEventListener("DOMContentLoaded", () => {
     profileBtn.style.display = "none";
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const productGrid = document.getElementById("products");
+
+  const items = JSON.parse(localStorage.getItem("items")) || [];
+
+  items.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.dataset.category = item.category;
+    card.dataset.name = item.name;
+
+    card.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <h4>${item.name}</h4>
+      <p>RM ${item.price}</p>
+      <small>${item.size}</small>
+    `;
+
+    productGrid.appendChild(card);
+  });
+});
