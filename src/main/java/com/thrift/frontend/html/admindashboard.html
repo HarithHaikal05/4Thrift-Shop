@@ -3,129 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <title>4THRIFT | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Homepage Reference: Dark Overlay & Modern Sans-Serif */
+        :root {
+            --bg-color: #000000;
+            --text-color: #FFFFFF;
+            --accent-color: #E10600; /* Homepage Red */
+            --border-color: #444444;
+        }
+
         body { 
-            font-family: 'Inter', 'Segoe UI', sans-serif; 
-            background: #121212; /* Matches homepage dark theme */
-            color: white;
-            padding: 40px 20px;
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
         }
 
         .form-container { 
-            background: rgba(255, 255, 255, 0.05); /* Modern translucent look */
+            background: #111111;
             padding: 40px; 
-            width: 500px; 
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 4px; /* Sharp, professional edges */
-            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 500px; 
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
         }
 
-        /* Matches "4THRIFT" Logo Style */
         h2 { 
-            font-size: 28px;
+            font-family: 'Anton', sans-serif; /* Street Style Header */
+            font-size: 36px;
             letter-spacing: 2px;
             text-transform: uppercase;
             text-align: center; 
             margin-bottom: 30px;
-            border-bottom: 3px solid #ff0000; /* Homepage Red accent */
-            display: inline-block;
-            width: 100%;
-            padding-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
         }
 
         label { 
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #aaa;
+            letter-spacing: 1.5px;
+            color: #888;
             display: block; 
-            margin-top: 20px; 
+            margin-bottom: 8px;
         }
 
         input, select, textarea { 
             width: 100%; 
             background: #1a1a1a;
-            color: white;
-            padding: 12px; 
-            margin-top: 8px; 
-            border: 1px solid #333; 
-            border-radius: 0px; /* Square edges for "Street" aesthetic */
+            color: var(--text-color);
+            padding: 14px; 
+            border: 1px solid var(--border-color); 
+            font-family: 'Inter', sans-serif;
             box-sizing: border-box; 
         }
 
-        input:focus { border-color: #ff0000; outline: none; }
+        input:focus { 
+            border-color: var(--accent-color); 
+            outline: none; 
+        }
 
-        /* Homepage Red Action Button */
         .btn-upload { 
-            background: #ff0000; /* Matches homepage "SHOP NOW" button */
+            background-color: var(--accent-color); /* Matches SHOP NOW button */
             color: white; 
             border: none; 
-            padding: 16px; 
+            padding: 18px; 
             width: 100%; 
-            margin-top: 30px;
-            font-weight: bold;
+            font-family: 'Anton', sans-serif;
+            font-size: 18px;
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: background 0.3s ease;
+            margin-top: 10px;
         }
 
         .btn-upload:hover { 
-            background: #cc0000; 
-            transform: translateY(-2px);
+            background-color: #b30500; 
         }
 
         #preview { 
             width: 100%; 
             display: none; 
             margin-top: 20px; 
-            border: 1px solid #444;
+            border: 1px solid var(--border-color);
         }
 
-        .status-msg {
-            padding: 10px;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 10px;
-            display: none;
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row > div {
+            flex: 1;
         }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Add Item</h2>
+        <h2>Add New Item</h2>
         
-        <div id="status" class="status-msg"></div>
-
         <form action="../../AdminProductServlet" method="POST" enctype="multipart/form-data">
-            <label>Product Name</label>
-            <input type="text" name="name" placeholder="e.g. VINTAGE LEATHER JACKET" required>
+            <div class="input-group">
+                <label>Product Name</label>
+                <input type="text" name="name" placeholder="VINTAGE STREETWEAR" required>
+            </div>
 
-            <div style="display: flex; gap: 20px;">
-                <div style="flex: 1;">
+            <div class="row">
+                <div class="input-group">
                     <label>Price (RM)</label>
-                    <input type="number" name="price" step="0.01" required>
+                    <input type="number" name="price" step="0.01" placeholder="0.00" required>
                 </div>
-                <div style="flex: 1;">
+                <div class="input-group">
                     <label>Stock</label>
-                    <input type="number" name="stock" required>
+                    <input type="number" name="stock" placeholder="1" required>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 20px;">
-                <div style="flex: 1;">
+            <div class="row">
+                <div class="input-group">
                     <label>Category</label>
                     <select name="category">
                         <option value="Tops">TOPS</option>
                         <option value="Bottoms">BOTTOMS</option>
                         <option value="Outerwear">OUTERWEAR</option>
+                        <option value="Collections">COLLECTIONS</option>
                     </select>
                 </div>
-                <div style="flex: 1;">
+                <div class="input-group">
                     <label>Size</label>
                     <select name="size">
                         <option value="S">S</option>
@@ -136,38 +147,28 @@
                 </div>
             </div>
 
-            <label>Description</label>
-            <textarea name="description" rows="3"></textarea>
+            <div class="input-group">
+                <label>Description</label>
+                <textarea name="description" rows="3" placeholder="Describe the vintage quality..."></textarea>
+            </div>
 
-            <label>Upload Imagery</label>
-            <input type="file" name="image" id="imgInp" accept="image/*" required>
-            <img id="preview" src="#">
+            <div class="input-group">
+                <label>Product Image</label>
+                <input type="file" name="image" id="imgInp" accept="image/*" required>
+                <img id="preview" src="#">
+            </div>
 
-            <button type="submit" class="btn-upload">Upload Product</button>
+            <button type="submit" class="btn-upload">Upload to Shop</button>
         </form>
     </div>
 
     <script>
-        // Image preview logic
+        // Real-time image preview
         imgInp.onchange = evt => {
             const [file] = imgInp.files;
             if (file) {
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = 'block';
-            }
-        }
-
-        // URL Status Handling
-        const params = new URLSearchParams(window.location.search);
-        const statusDiv = document.getElementById('status');
-        if (params.has('msg')) {
-            statusDiv.style.display = 'block';
-            if (params.get('msg') === 'success') {
-                statusDiv.innerText = "SUCCESSFULLY ADDED";
-                statusDiv.style.color = "#00ff00";
-            } else {
-                statusDiv.innerText = "ERROR IN UPLOAD";
-                statusDiv.style.color = "#ff0000";
             }
         }
     </script>
