@@ -105,3 +105,14 @@ function markAsArrived(button) {
   button.remove();
   alert("Thanks! Order marked as received.");
 }
+
+/* ===============================
+   SELL ITEM BUTTON
+================================ */
+const sellBtn = document.getElementById("sellItemBtn");
+
+if (sellBtn) {
+  sellBtn.addEventListener("click", () => {
+    window.location.href = "sellitempage.html";
+  });
+}
