@@ -16,3 +16,10 @@ function filterProducts() {
 
 sizeFilter.addEventListener("change", filterProducts);
 typeFilter.addEventListener("change", filterProducts);
+
+const loginBtn = document.getElementById("loginBtn");
+const profileBtn = document.getElementById("profileBtn");
+
+// check login status
+const isLoggedIn = localStorage.getItem("isLoggedIn");
+

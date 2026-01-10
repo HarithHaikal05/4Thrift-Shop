@@ -53,6 +53,11 @@ body {
   font-size: 18px;
 }
 
+.profile-btn {
+  opacity: 0.5;
+}
+
+
 /* HERO */
 .hero {
   height: 100vh;
