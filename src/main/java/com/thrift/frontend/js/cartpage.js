@@ -7,12 +7,22 @@ const cartTotalEl = document.getElementById("cartTotal");
 
 let quantity = 1;
 const price = parseInt(priceEl.textContent);
+const itemName = "Vintage Denim Jacket";
 
 function updateCart() {
   const total = quantity * price;
+
   quantityEl.textContent = quantity;
   itemTotalEl.textContent = total;
   cartTotalEl.textContent = total;
+
+  // ✅ SAVE TO localStorage
+  localStorage.setItem("cartItem", JSON.stringify({
+    name: itemName,
+    price: price,
+    quantity: quantity,
+    total: total
+  }));
 }
 
 plusBtn.addEventListener("click", () => {
@@ -26,3 +36,6 @@ minusBtn.addEventListener("click", () => {
     updateCart();
   }
 });
+
+// Save initial state
+updateCart();
