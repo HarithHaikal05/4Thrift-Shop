@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4THRIFT | Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/checkoutpage.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">4THRIFT</div>
+  </nav>
+
+  <section class="checkout">
+
+    <h1>CHECKOUT</h1>
+
+    <!-- SHIPPING ADDRESS -->
+    <div class="section">
+      <h2>Shipping Address</h2>
+
+      <input type="text" name="fullname" placeholder="Full Name" required>
+      <input type="text" name="address" placeholder="Full Address" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="section">
+      <h2>Your Item</h2>
+
+      <div class="order-item">
+        <span>Vintage Denim Jacket (x1)</span>
+        <span>RM 59</span>
+      </div>
+
+      <div class="order-total">
+        Total: RM <span id="totalPrice">59</span>
+      </div>
+    </div>
+
+    <!-- PAYMENT METHOD -->
+    <div class="section">
+      <h2>Payment Method</h2>
+
+      <label>
+        <input type="radio" name="payment" value="E-Wallet" checked>
+        E-Wallet
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="COD">
+        Cash on Delivery
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="Card">
+        Credit / Debit Card
+      </label>
+    </div>
+
+    <!-- PAY BUTTON -->
+    <button class="pay-btn" id="payBtn">PAY NOW</button>
+
+    <!-- SUCCESS MESSAGE -->
+    <p class="success-msg" id="successMsg">
+      ✅ Payment successful! Redirecting to homepage...
+    </p>
+
+  </section>
+
+  <script src="../js/checkoutpage.js"></script>
+</body>
+</html>

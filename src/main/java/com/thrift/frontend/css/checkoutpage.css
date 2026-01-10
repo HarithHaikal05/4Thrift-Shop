@@ -1,0 +1,94 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  padding: 20px 60px;
+  background: rgba(0,0,0,0.6);
+}
+
+.logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+}
+
+/* CHECKOUT */
+.checkout {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.checkout h1 {
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+
+/* INPUTS */
+input[type="text"] {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+/* ORDER */
+.order-item,
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.order-total {
+  font-weight: 600;
+  color: #e10600;
+}
+
+/* PAYMENT */
+label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.pay-btn {
+  width: 100%;
+  background: #e10600;
+  border: none;
+  padding: 14px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  margin-top: 20px;
+  text-align: center;
+  color: #0f0;
+  display: none;
+}
