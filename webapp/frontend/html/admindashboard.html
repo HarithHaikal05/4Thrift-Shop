@@ -3,113 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>4THRIFT | Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #000000;
-            --text-color: #FFFFFF;
-            --accent-color: #E10600; /* Homepage Red */
-            --border-color: #444444;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .form-container { 
-            background: #111111;
-            padding: 40px; 
-            width: 100%;
-            max-width: 500px; 
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-        }
-
-        h2 { 
-            font-family: 'Anton', sans-serif; /* Street Style Header */
-            font-size: 36px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center; 
-            margin-bottom: 30px;
-            color: var(--text-color);
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label { 
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #888;
-            display: block; 
-            margin-bottom: 8px;
-        }
-
-        input, select, textarea { 
-            width: 100%; 
-            background: #1a1a1a;
-            color: var(--text-color);
-            padding: 14px; 
-            border: 1px solid var(--border-color); 
-            font-family: 'Inter', sans-serif;
-            box-sizing: border-box; 
-        }
-
-        input:focus { 
-            border-color: var(--accent-color); 
-            outline: none; 
-        }
-
-        .btn-upload { 
-            background-color: var(--accent-color); /* Matches SHOP NOW button */
-            color: white; 
-            border: none; 
-            padding: 18px; 
-            width: 100%; 
-            font-family: 'Anton', sans-serif;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .btn-upload:hover { 
-            background-color: #b30500; 
-        }
-
-        #preview { 
-            width: 100%; 
-            display: none; 
-            margin-top: 20px; 
-            border: 1px solid var(--border-color);
-        }
-
-        .row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .row > div {
-            flex: 1;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="css/admindashboard.css">
 </head>
 <body>
+
     <div class="form-container">
         <h2>Add New Item</h2>
         
-        <form action="../../AdminProductServlet" method="POST" enctype="multipart/form-data">
+        <form action="/AdminProductServlet" method="POST" enctype="multipart/form-data">
             <div class="input-group">
                 <label>Product Name</label>
                 <input type="text" name="name" placeholder="VINTAGE STREETWEAR" required>
@@ -155,7 +62,7 @@
             <div class="input-group">
                 <label>Product Image</label>
                 <input type="file" name="image" id="imgInp" accept="image/*" required>
-                <img id="preview" src="#">
+                <img id="preview" src="#" alt="Image Preview">
             </div>
 
             <button type="submit" class="btn-upload">Upload to Shop</button>
@@ -163,7 +70,10 @@
     </div>
 
     <script>
-        // Real-time image preview
+        // Real-time image preview logic
+        const imgInp = document.getElementById('imgInp');
+        const preview = document.getElementById('preview');
+
         imgInp.onchange = evt => {
             const [file] = imgInp.files;
             if (file) {

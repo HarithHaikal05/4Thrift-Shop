@@ -8,7 +8,7 @@
         :root {
             --bg-color: #000000;
             --text-color: #FFFFFF;
-            --accent-color: #E10600; /* Homepage Red */
+            --accent-color: #E10600;
             --border-color: #444444;
         }
 
@@ -32,7 +32,7 @@
         }
 
         h2 { 
-            font-family: 'Anton', sans-serif; /* Street Style Header */
+            font-family: 'Anton', sans-serif;
             font-size: 36px;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -41,9 +41,7 @@
             color: var(--text-color);
         }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+        .input-group { margin-bottom: 20px; }
 
         label { 
             font-size: 11px;
@@ -64,13 +62,10 @@
             box-sizing: border-box; 
         }
 
-        input:focus { 
-            border-color: var(--accent-color); 
-            outline: none; 
-        }
+        input:focus { border-color: var(--accent-color); outline: none; }
 
         .btn-upload { 
-            background-color: var(--accent-color); /* Matches SHOP NOW button */
+            background-color: var(--accent-color);
             color: white; 
             border: none; 
             padding: 18px; 
@@ -84,9 +79,7 @@
             margin-top: 10px;
         }
 
-        .btn-upload:hover { 
-            background-color: #b30500; 
-        }
+        .btn-upload:hover { background-color: #b30500; }
 
         #preview { 
             width: 100%; 
@@ -95,21 +88,15 @@
             border: 1px solid var(--border-color);
         }
 
-        .row {
-            display: flex;
-            gap: 15px;
-        }
-
-        .row > div {
-            flex: 1;
-        }
+        .row { display: flex; gap: 15px; }
+        .row > div { flex: 1; }
     </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Add New Item</h2>
         
-        <form action="../../AdminProductServlet" method="POST" enctype="multipart/form-data">
+        <form action="/AdminProductServlet" method="POST" enctype="multipart/form-data">
             <div class="input-group">
                 <label>Product Name</label>
                 <input type="text" name="name" placeholder="VINTAGE STREETWEAR" required>
@@ -163,7 +150,6 @@
     </div>
 
     <script>
-        // Real-time image preview
         imgInp.onchange = evt => {
             const [file] = imgInp.files;
             if (file) {
