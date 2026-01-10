@@ -49,6 +49,3 @@ document.addEventListener("DOMContentLoaded", function() {
         box.innerText = msg;
     }
 });
-
-localStorage.setItem("isLoggedIn", "true");
-window.location.href = "homepage.html";

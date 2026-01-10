@@ -15,30 +15,32 @@
 <body>
 
   <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">4THRIFT</div>
+<nav class="navbar">
+  <div class="logo" onclick="goHome()">4THRIFT</div>
 
-    <ul class="nav-links">
-      <li>Home</li>
-      <li>Categories</li>
-      <li>Collections</li>
-    </ul>
-
-  <div class="nav-actions">
-    <a href="signupLoginpage.html" class="nav-btn">Login</a>
-    <a href="profilepage.html" class="profile-btn">Profile</a>
-    <a href="cartpage.html" class="cart-icon">🛒</a>
+  <div class="search-wrapper">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search items or categories"
+    />
+    <button id="searchBtn">search</button>
   </div>
 
-
-  </nav>
+  <div class="nav-actions">
+    <a href="signupLoginpage.html" id="loginBtn">Login</a>
+    <a href="profilepage.html" id="profileBtn" style="display:none;">Profile</a>
+    <a href="cartpage.html" class="cart-icon">🛒</a>
+  </div>
+</nav>
 
   <!-- HERO SECTION -->
   <section class="hero">
     <div class="hero-content">
-      <h1>STREET</h1>
+      <h1>UNDERGROUND</h1>
       <p>Handpicked thrift fashion. Vintage. Affordable.</p>
-      <button class="cta-btn">SHOP NOW</button>
+      <button class="cta-btn" id="shopNowBtn">SHOP NOW</button>
+
     </div>
   </section>
 
@@ -60,25 +62,25 @@
   </section>
 
   <!-- PRODUCT GRID -->
-  <section class="products">
-    <div class="product-card" data-size="M" data-type="Denim">
-      <img src="https://via.placeholder.com/300x350" />
-      <h3>Vintage Denim Jacket</h3>
-      <p>RM 59</p>
-    </div>
+<section class="products" id="products">
+  <div class="product-card" data-name="Vintage Denim Jacket" data-category="Denim">
+    <img src="https://via.placeholder.com/300x350">
+    <h3>Vintage Denim Jacket</h3>
+    <p>RM 59</p>
+  </div>
 
-    <div class="product-card" data-size="L" data-type="Hoodie">
-      <img src="https://via.placeholder.com/300x350" />
-      <h3>Oversized Hoodie</h3>
-      <p>RM 49</p>
-    </div>
+  <div class="product-card" data-name="Oversized Hoodie" data-category="Hoodie">
+    <img src="https://via.placeholder.com/300x350">
+    <h3>Oversized Hoodie</h3>
+    <p>RM 49</p>
+  </div>
 
-    <div class="product-card" data-size="S" data-type="Shirt">
-      <img src="https://via.placeholder.com/300x350" />
-      <h3>Retro Shirt</h3>
-      <p>RM 39</p>
-    </div>
-  </section>
+  <div class="product-card" data-name="Retro Shirt" data-category="Shirt">
+    <img src="https://via.placeholder.com/300x350">
+    <h3>Retro Shirt</h3>
+    <p>RM 39</p>
+  </div>
+</section>
 
   <script src="../js/homepage.js"></script>
 </body>

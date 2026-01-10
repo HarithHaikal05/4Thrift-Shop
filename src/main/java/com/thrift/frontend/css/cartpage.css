@@ -19,16 +19,37 @@ body {
   background: rgba(0,0,0,0.6);
 }
 
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .logo {
   font-family: 'Anton', sans-serif;
   font-size: 28px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  margin-top: 7px;
 }
 
-.navbar a {
+.logo:hover {
+  opacity: 0.8;
+}
+
+.continue-link {
   color: #fff;
   text-decoration: none;
   font-size: 14px;
 }
+
+.continue-link:hover {
+  text-decoration: underline;
+}
+
+
 
 /* CART */
 .cart {
