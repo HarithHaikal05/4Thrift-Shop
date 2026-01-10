@@ -1,0 +1,210 @@
+/* GLOBAL RESET */
+* { box-sizing: border-box; }
+
+body {
+    background-color: #000; /* Void Black */
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* NAVIGATION */
+nav {
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #222;
+}
+
+.logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+.nav-links a:hover { opacity: 1; color: #ff0000; }
+.logout-link { color: #ff0000 !important; opacity: 1 !important; }
+
+/* MAIN LAYOUT */
+.profile-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 50px;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* USER CARD (Left Side) */
+.user-card {
+    flex: 1;
+    min-width: 300px;
+    background: #050505;
+    border: 1px solid #222;
+    padding: 40px;
+    text-align: center;
+    height: fit-content;
+}
+
+.avatar-circle {
+    width: 100px;
+    height: 100px;
+    background-color: #1a1a1a;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    color: #ff0000;
+    border: 2px solid #333;
+}
+
+.user-card h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.user-card p { color: #888; margin-bottom: 20px; }
+
+.role-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* HISTORY SECTION (Right Side) */
+.history-section {
+    flex: 2;
+    min-width: 300px;
+}
+
+.history-section h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff0000;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.order-list {
+    background: #050505;
+    border: 1px solid #222;
+    padding: 30px;
+    min-height: 300px;
+}
+
+.empty-msg { color: #666; font-style: italic; margin-bottom: 20px; }
+
+.shop-btn {
+    display: inline-block;
+    background: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+.shop-btn:hover { background: #cc0000; }
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .profile-container { flex-direction: column; padding: 20px; }
+    nav { padding: 20px; }
+}
+
+/* --- ORDER HISTORY STATUS BADGES --- */
+
+/* The row for each order */
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #222;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-id {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.order-date {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+/* STATUS BADGES */
+.status-badge {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.status-arrived {
+    background: rgba(40, 167, 69, 0.2); /* Green Background */
+    color: #28a745; /* Green Text */
+    border: 1px solid #28a745;
+}
+
+.status-shipped {
+    background: rgba(0, 123, 255, 0.2); /* Blue Background */
+    color: #007bff; /* Blue Text */
+    border: 1px solid #007bff;
+}
+
+.status-pending {
+    background: rgba(255, 193, 7, 0.2); /* Yellow Background */
+    color: #ffc107; /* Yellow Text */
+    border: 1px solid #ffc107;
+}
+
+.order-price {
+    font-family: 'Anton', sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-left: 20px;
+}
