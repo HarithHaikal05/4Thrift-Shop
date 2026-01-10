@@ -48,10 +48,17 @@ document.getElementById("shopNowBtn").addEventListener("click", () => {
 
 
 // LOGIN / PROFILE TOGGLE
-const loginBtn = document.getElementById("loginBtn");
-const profileBtn = document.getElementById("profileBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("loginBtn");
+  const profileBtn = document.getElementById("profileBtn");
 
-if (localStorage.getItem("isLoggedIn") === "true") {
-  loginBtn.style.display = "none";
-  profileBtn.style.display = "inline-block";
-}
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  if (isLoggedIn === "true") {
+    loginBtn.style.display = "none";
+    profileBtn.style.display = "inline-block";
+  } else {
+    loginBtn.style.display = "inline-block";
+    profileBtn.style.display = "none";
+  }
+});

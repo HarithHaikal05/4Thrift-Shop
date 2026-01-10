@@ -1,51 +1,73 @@
-// 1. Function to switch between Login and Signup forms
+/* ===============================
+   LOGIN / SIGNUP TOGGLE
+================================ */
 function switchForm(type) {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    const btns = document.querySelectorAll('.toggle-btn');
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+  const btns = document.querySelectorAll(".toggle-btn");
 
-    if (type === 'login') {
-        // Show Login, Hide Signup
-        loginForm.classList.add('active');
-        signupForm.classList.remove('active');
-        
-        // Update the Underline on the buttons
-        btns[0].classList.add('active');
-        btns[1].classList.remove('active');
-    } else {
-        // Show Signup, Hide Login
-        loginForm.classList.remove('active');
-        signupForm.classList.add('active');
-        
-        // Update the Underline
-        btns[0].classList.remove('active');
-        btns[1].classList.add('active');
-    }
+  if (type === "login") {
+    loginForm.classList.add("active");
+    signupForm.classList.remove("active");
+
+    btns[0].classList.add("active");
+    btns[1].classList.remove("active");
+  } else {
+    loginForm.classList.remove("active");
+    signupForm.classList.add("active");
+
+    btns[0].classList.remove("active");
+    btns[1].classList.add("active");
+  }
 }
 
-// 2. Function that runs automatically when page loads
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // Check URL for error messages (e.g. ?error=Invalid Password)
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
-    const msg = urlParams.get('msg');
-    const box = document.getElementById('error-box');
+/* ===============================
+   PAGE LOAD LOGIC
+================================ */
+document.addEventListener("DOMContentLoaded", () => {
 
-    if (error) {
-        box.style.display = 'block';
-        box.innerText = error;
-        
-        // Bonus: If the error is about "Username Taken", switch to Signup tab automatically
-        if (error.includes("Taken") || error.includes("Register")) {
-            switchForm('signup');
-        }
-    } else if (msg) {
-        // Success messages (Green)
-        box.style.display = 'block';
-        box.style.color = '#00ff00';
-        box.style.borderColor = '#00ff00';
-        box.style.backgroundColor = 'rgba(0, 255, 0, 0.05)';
-        box.innerText = msg;
+  /* ----- URL MESSAGE HANDLING ----- */
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get("error");
+  const msg = urlParams.get("msg");
+  const box = document.getElementById("error-box");
+
+  if (error) {
+    box.style.display = "block";
+    box.style.color = "#ff4444";
+    box.innerText = error;
+
+    if (error.includes("Taken") || error.includes("Register")) {
+      switchForm("signup");
     }
+  } else if (msg) {
+    box.style.display = "block";
+    box.style.color = "#00ff00";
+    box.style.borderColor = "#00ff00";
+    box.style.backgroundColor = "rgba(0,255,0,0.05)";
+    box.innerText = msg;
+  }
+
+  /* ----- LOGIN SUBMIT HANDLER ----- */
+  const loginFormEl = document.getElementById("loginForm");
+
+  if (loginFormEl) {
+    loginFormEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (email && password) {
+        // Save login state
+        localStorage.setItem("isLoggedIn", "true");
+
+        // Redirect to homepage
+        window.location.href = "homepage.html";
+      } else {
+        alert("Invalid login details");
+      }
+    });
+  }
+
 });
