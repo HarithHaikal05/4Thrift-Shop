@@ -1,14 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ===============================
-     AUTH GUARD (FRONTEND)
-  ================================ */
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "signupLoginpage.html?error=Please login first";
-    return;
-  }
-
-  /* ===============================
+/* ===============================
      FETCH PROFILE DATA
   ================================ */
   fetch("GetProfileServlet")
