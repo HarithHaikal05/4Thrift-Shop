@@ -1,51 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard | 4Thrift</title>
+    <meta charset="UTF-8">
+    <title>4THRIFT | Admin Dashboard</title>
     <style>
-        body { font-family: Arial; padding: 20px; background: #f0f0f0; }
-        .form-container { background: white; padding: 20px; width: 400px; margin: auto; border-radius: 8px; }
-        input, select, textarea { width: 100%; margin: 10px 0; padding: 8px; box-sizing: border-box; }
-        button { background: #e67e22; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; }
-        #preview { width: 100%; display: none; margin-top: 10px; }
+        /* Homepage Reference: Dark Overlay & Modern Sans-Serif */
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background: #121212; /* Matches homepage dark theme */
+            color: white;
+            padding: 40px 20px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-container { 
+            background: rgba(255, 255, 255, 0.05); /* Modern translucent look */
+            padding: 40px; 
+            width: 500px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px; /* Sharp, professional edges */
+            backdrop-filter: blur(10px);
+        }
+
+        /* Matches "4THRIFT" Logo Style */
+        h2 { 
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center; 
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ff0000; /* Homepage Red accent */
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        label { 
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaa;
+            display: block; 
+            margin-top: 20px; 
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            background: #1a1a1a;
+            color: white;
+            padding: 12px; 
+            margin-top: 8px; 
+            border: 1px solid #333; 
+            border-radius: 0px; /* Square edges for "Street" aesthetic */
+            box-sizing: border-box; 
+        }
+
+        input:focus { border-color: #ff0000; outline: none; }
+
+        /* Homepage Red Action Button */
+        .btn-upload { 
+            background: #ff0000; /* Matches homepage "SHOP NOW" button */
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            width: 100%; 
+            margin-top: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-upload:hover { 
+            background: #cc0000; 
+            transform: translateY(-2px);
+        }
+
+        #preview { 
+            width: 100%; 
+            display: none; 
+            margin-top: 20px; 
+            border: 1px solid #444;
+        }
+
+        .status-msg {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
-        <h2>Add New Product</h2>
+        <h2>Add Item</h2>
+        
+        <div id="status" class="status-msg"></div>
+
         <form action="../../AdminProductServlet" method="POST" enctype="multipart/form-data">
-            <input type="text" name="name" placeholder="Product Name" required>
-            <input type="number" name="price" step="0.01" placeholder="Price (RM)" required>
-            <input type="number" name="stock" placeholder="Stock Quantity" required>
-            
-            <select name="category">
-                <option value="Top">Tops</option>
-                <option value="Bottom">Bottoms</option>
-                <option value="Outerwear">Outerwear</option>
-            </select>
+            <label>Product Name</label>
+            <input type="text" name="name" placeholder="e.g. VINTAGE LEATHER JACKET" required>
 
-            <select name="size">
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-            </select>
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label>Price (RM)</label>
+                    <input type="number" name="price" step="0.01" required>
+                </div>
+                <div style="flex: 1;">
+                    <label>Stock</label>
+                    <input type="number" name="stock" required>
+                </div>
+            </div>
 
-            <textarea name="description" placeholder="Product Description"></textarea>
-            
-            <label>Upload Image:</label>
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label>Category</label>
+                    <select name="category">
+                        <option value="Tops">TOPS</option>
+                        <option value="Bottoms">BOTTOMS</option>
+                        <option value="Outerwear">OUTERWEAR</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label>Size</label>
+                    <select name="size">
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+            </div>
+
+            <label>Description</label>
+            <textarea name="description" rows="3"></textarea>
+
+            <label>Upload Imagery</label>
             <input type="file" name="image" id="imgInp" accept="image/*" required>
             <img id="preview" src="#">
 
-            <button type="submit">Upload Product</button>
+            <button type="submit" class="btn-upload">Upload Product</button>
         </form>
     </div>
 
     <script>
+        // Image preview logic
         imgInp.onchange = evt => {
             const [file] = imgInp.files;
             if (file) {
                 preview.src = URL.createObjectURL(file);
                 preview.style.display = 'block';
+            }
+        }
+
+        // URL Status Handling
+        const params = new URLSearchParams(window.location.search);
+        const statusDiv = document.getElementById('status');
+        if (params.has('msg')) {
+            statusDiv.style.display = 'block';
+            if (params.get('msg') === 'success') {
+                statusDiv.innerText = "SUCCESSFULLY ADDED";
+                statusDiv.style.color = "#00ff00";
+            } else {
+                statusDiv.innerText = "ERROR IN UPLOAD";
+                statusDiv.style.color = "#ff0000";
             }
         }
     </script>
