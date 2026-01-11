@@ -1,112 +1,142 @@
+/* ===============================
+   1. CSS VARIABLES
+================================ */
 :root {
-  --bg-color: #000000;
-  --panel-color: #0f0f0f;
-  --text-color: #ffffff;
-  --muted-text: #888888;
-  --accent-color: #e10600;
-  --border-color: #2a2a2a;
+  --bg: #000000;
+  --panel: #0f0f0f;
+  --panel-soft: #111111;
+  --text: #ffffff;
+  --muted: #888888;
+  --accent: #e10600;
+  --border: #2a2a2a;
 }
 
 /* ===============================
-   BASE
+   2. GLOBAL RESET
 ================================ */
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: "Inter", sans-serif;
-  background: radial-gradient(circle at top, #111 0%, #000 60%);
-  color: var(--text-color);
   margin: 0;
-  padding: 60px 20px;
+  min-height: 100vh;
+
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #111 0%, #000 65%);
+
   display: flex;
-  justify-content: center;
+  flex-direction: column;
 }
 
 /* ===============================
-   NEW: HOME BUTTON (TOP LEFT)
+   3. NAVBAR
 ================================ */
-.top-nav {
-  position: absolute;
-  top: 30px;
-  left: 40px;
+nav {
+  padding: 20px 50px;
+  display: flex;
+  align-items: center;
 }
 
-.home-link {
-  font-family: 'Anton', sans-serif;
-  font-size: 24px;
+.logo {
+  font-family: "Anton", sans-serif;
+  font-size: 28px;
   letter-spacing: 2px;
+  text-transform: uppercase;
+
   color: #fff;
   text-decoration: none;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
 
-.home-link:hover {
-  opacity: 0.7;
+  line-height: 1;
 }
 
 /* ===============================
-   FORM CONTAINER
+   4. PAGE WRAPPER
+================================ */
+.auth-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 40px 20px;
+}
+
+/* ===============================
+   5. FORM CARD
 ================================ */
 .form-container {
-  background: linear-gradient(180deg, #111, #0a0a0a);
-  padding: 42px;
   width: 100%;
   max-width: 520px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
+
+  background: linear-gradient(180deg, #111, #0a0a0a);
+  padding: 42px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  /* Added margin top to ensure it doesn't overlap nav on small screens */
-  margin-top: 20px; 
 }
 
 /* ===============================
-   HEADER
+   6. HEADER
 ================================ */
-h2 {
+.form-container h2 {
   font-family: "Anton", sans-serif;
   font-size: 38px;
   letter-spacing: 3px;
   text-transform: uppercase;
   text-align: center;
-  margin-bottom: 36px;
+
+  margin: 0 0 36px;
   position: relative;
 }
 
-h2::after {
+.form-container h2::after {
   content: "";
   display: block;
   width: 60px;
   height: 3px;
-  background: var(--accent-color);
+  background: var(--accent);
   margin: 16px auto 0;
 }
 
 /* ===============================
-   FORM ELEMENTS
+   7. FORM GROUPS
 ================================ */
 .input-group {
   margin-bottom: 22px;
 }
 
-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--muted-text);
+.input-group label {
   display: block;
   margin-bottom: 8px;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: var(--muted);
 }
 
+/* ===============================
+   8. INPUTS
+================================ */
 input,
 select,
 textarea {
   width: 100%;
-  background: #151515;
-  color: var(--text-color);
   padding: 14px 16px;
-  border: 1px solid var(--border-color);
-  font-family: "Inter", sans-serif;
-  box-sizing: border-box;
+
+  background: #151515;
+  color: var(--text);
+
+  border: 1px solid var(--border);
   border-radius: 4px;
+
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+
   transition: border 0.2s ease, background 0.2s ease;
 }
 
@@ -118,44 +148,48 @@ textarea::placeholder {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: var(--accent-color);
-  background: #1a1a1a;
   outline: none;
+  background: #1a1a1a;
+  border-color: var(--accent);
 }
 
 /* ===============================
-   ROWS
+   9. ROW LAYOUT
 ================================ */
 .row {
   display: flex;
   gap: 16px;
 }
 
-.row > div {
+.row > .input-group {
   flex: 1;
 }
 
 /* ===============================
-   IMAGE PREVIEW
+   10. FILE INPUT + PREVIEW
 ================================ */
+input[type="file"] {
+  padding: 10px;
+}
+
 #preview {
   width: 100%;
   margin-top: 16px;
   border-radius: 4px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   display: none;
 }
 
 /* ===============================
-   UPLOAD BUTTON (PRIMARY CTA)
+   11. SUBMIT BUTTON
 ================================ */
 .btn-upload {
-  margin-top: 30px;
   width: 100%;
+  margin-top: 30px;
   padding: 18px;
 
   background: linear-gradient(135deg, #ff0000, #b30000);
-  color: #ffffff;
+  color: #fff;
 
   border: none;
   border-radius: 999px;
@@ -177,4 +211,17 @@ textarea:focus {
 .btn-upload:active {
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
+}
+
+/* ===============================
+   12. RESPONSIVE
+================================ */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px 24px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
 }
