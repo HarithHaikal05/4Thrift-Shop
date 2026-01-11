@@ -213,6 +213,7 @@ input[type="file"] {
   box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
 }
 
+<<<<<<< HEAD
 /* ===============================
    12. RESPONSIVE
 ================================ */
@@ -225,3 +226,21 @@ input[type="file"] {
     flex-direction: column;
   }
 }
+=======
+/* FIXED HOME BUTTON */
+.home-btn-fixed {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-family: 'Anton', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    z-index: 1000;
+}
+
+.home-btn-fixed:hover {
+    color: #e10600;
+}
+>>>>>>> 7d158e4078e57712f27cb4076755031440456121

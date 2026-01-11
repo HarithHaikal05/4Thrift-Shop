@@ -1,26 +1,23 @@
-const itemNameEl = document.getElementById("itemName");
-const itemPriceEl = document.getElementById("itemPrice");
-const totalPriceEl = document.getElementById("totalPrice");
+document.addEventListener("DOMContentLoaded", () => {
+    // Fetch cart data to display the total
+    fetch('../../GetCartServlet')
+    .then(res => res.json())
+    .then(items => {
+        if (items.length === 0) {
+            alert("Your cart is empty!");
+            window.location.href = "cartpage.html";
+            return;
+        }
 
-const payBtn = document.getElementById("payBtn");
-const successMsg = document.getElementById("successMsg");
+        let total = 0;
+        items.forEach(item => {
+            // Note: GetCartServlet usually returns flat list. 
+            // If you updated it to return grouped, adjust logic. 
+            // Assuming flat list [ItemA, ItemA, ItemB]:
+            total += item.price;
+        });
 
-// ✅ LOAD FROM localStorage
-const cartItem = JSON.parse(localStorage.getItem("cartItem"));
-
-if (cartItem) {
-  itemNameEl.textContent = `${cartItem.name} (x${cartItem.quantity})`;
-  itemPriceEl.textContent = `RM ${cartItem.total}`;
-  totalPriceEl.textContent = cartItem.total;
-}
-
-payBtn.addEventListener("click", () => {
-  successMsg.style.display = "block";
-
-  // Optional: clear cart after payment
-  localStorage.removeItem("cartItem");
-
-  setTimeout(() => {
-    window.location.href = "homepage.html";
-  }, 3000);
+        document.getElementById("displayTotal").innerText = total.toFixed(2);
+    })
+    .catch(err => console.error("Error loading cart for checkout:", err));
 });
