@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <title>4THRIFT | Checkout</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="../css/checkoutpage.css">
 </head>
 <body>
@@ -19,53 +15,44 @@
 
   <section class="checkout">
     <h1>CHECKOUT</h1>
-    <div class="section">
-      <h2>Shipping Address</h2>
-      <input type="text" name="fullname" placeholder="Full Name" required>
-      <input type="text" name="address" placeholder="Full Address" required>
-      <input type="text" name="phone" placeholder="Phone Number" required>
-    </div>
-
-    <div class="section">
-     <h2>Your Item</h2>
-        <div class="order-item">
-         <span id="itemName"></span>
-         <span id="itemPrice"></span>
+    
+    <form action="../../CheckoutServlet" method="POST">
+    
+        <div class="section">
+          <h2>Shipping Address</h2>
+          <input type="text" name="fullname" placeholder="Full Name" required>
+          <input type="text" name="address" placeholder="Full Address" required>
+          <input type="text" name="phone" placeholder="Phone Number" required>
         </div>
-     <div class="order-total">
-        Total: RM <span id="totalPrice"></span>
-     </div>
-    </div>
 
-    <div class="section">
-      <h2>Payment Method</h2>
-      <label>
-        <input type="radio" name="payment" value="E-Wallet" checked>
-        E-Wallet
-      </label>
-      <label>
-        <input type="radio" name="payment" value="COD">
-        Cash on Delivery
-      </label>
-      <label>
-        <input type="radio" name="payment" value="Card">
-        Credit / Debit Card
-      </label>
-    </div>
+        <div class="section">
+           <h2>Your Order</h2>
+           <div class="order-total">
+             Total to Pay: RM <span id="displayTotal">0.00</span>
+           </div>
+        </div>
 
-    <button type="button" id="payBtn">Pay Now</button>
+        <div class="section">
+          <h2>Payment Method</h2>
+          <label>
+            <input type="radio" name="payment" value="E-Wallet" checked>
+            E-Wallet
+          </label>
+          <label>
+            <input type="radio" name="payment" value="COD">
+            Cash on Delivery
+          </label>
+          <label>
+            <input type="radio" name="payment" value="Card">
+            Credit / Debit Card
+          </label>
+        </div>
 
-  <script>
-   document.getElementById("payBtn").addEventListener("click", function (e) {
-    e.preventDefault();
-    const userConfirmed = confirm("✅ Payment successful!\n\nClick OK to return to homepage.");
-    if (userConfirmed) {
-      window.location.href = "homepage.html";
-    }
-   });
-  </script>
+        <button type="submit" id="payBtn">Pay Now</button>
+    </form>
 
   </section>
+  
   <script src="../js/checkoutpage.js"></script>
 </body>
 </html>

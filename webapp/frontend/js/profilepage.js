@@ -1,128 +1,73 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /* ===============================
-      FETCH PROFILE DATA
-  ================================ */
-  fetch("GetProfileServlet") // Ensure this path matches your servlet mapping
-    .then(response => {
-      if (response.status === 401) {
-        throw new Error("Not logged in");
-      }
-      return response.json();
+    /* FETCH PROFILE INFO */
+    fetch("../../GetProfileServlet")
+    .then(res => {
+        if (!res.ok) throw new Error("Not Logged In");
+        return res.json();
     })
     .then(user => {
-      document.getElementById("display-username").innerText = user.username;
-      document.getElementById("display-email").innerText = user.email;
-
-      const initial = user.username.charAt(0).toUpperCase();
-      document.getElementById("avatar-initial").innerText = initial;
-
-      if (user.role) {
+        document.getElementById("display-username").innerText = user.username;
+        document.getElementById("display-email").innerText = user.email;
+        document.getElementById("avatar-initial").innerText = user.username.charAt(0).toUpperCase();
         document.getElementById("display-role").innerText = user.role.toUpperCase();
-      }
     })
-    .catch(() => {
-      console.log("Guest mode / Live Server");
+    .catch(err => {
+        console.log(err);
+        window.location.href = "signupLoginpage.html"; // Redirect if not logged in
     });
 
-  /* ===============================
-      LOAD ORDER HISTORY
-  ================================ */
-  loadOrderHistory();
+    /* FETCH REAL ORDERS FROM DB */
+    loadOrderHistory();
 
-  /* ===============================
-      LOGOUT BUTTON LOGIC (FIXED)
-  ================================ */
-  const logoutBtn = document.getElementById("logoutBtn");
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", (event) => {
-      // 1. Prevent the default link jump
-      event.preventDefault();
-
-      // 2. Clear the "Frontend" login flag
-      localStorage.removeItem("isLoggedIn");
-
-      // 3. Redirect to the "Backend" Servlet to kill the session
-      // Since your HTML is in /frontend/html/ and Servlet is likely at root /
-      // We go back two folders (../../) to reach the context root.
-      window.location.href = "../../LogoutServlet";
-    });
-  }
-
+    /* LOGOUT LOGIC */
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "../../LogoutServlet";
+        });
+    }
 });
 
-/* ===============================
-   ORDER HISTORY LOGIC
-================================ */
 function loadOrderHistory() {
-  const orderContainer = document.querySelector(".order-list");
+    const orderContainer = document.querySelector(".order-list");
 
-  const mockOrders = [
-    { id: "ORD-8821", date: "Jan 10, 2026", status: "Pending", price: "RM 120.00" },
-    { id: "ORD-8804", date: "Jan 05, 2026", status: "Shipped", price: "RM 59.00" },
-    { id: "ORD-7793", date: "Dec 28, 2025", status: "Arrived", price: "RM 240.00" }
-  ];
+    fetch("../../GetOrdersServlet")
+    .then(res => res.json())
+    .then(orders => {
+        orderContainer.innerHTML = "";
 
-  if(orderContainer) {
-      orderContainer.innerHTML = "";
-    
-      mockOrders.forEach(order => {
-        let badgeClass = "status-pending";
-        let actionHTML = "";
-    
-        if (order.status === "Arrived") {
-          badgeClass = "status-arrived";
-        } 
-        else if (order.status === "Shipped") {
-          badgeClass = "status-shipped";
-          actionHTML = `
-            <button class="confirm-btn" onclick="markAsArrived(this)">
-              Confirm Receipt
-            </button>
-          `;
+        if (orders.length === 0) {
+            orderContainer.innerHTML = "<p class='empty-msg'>No orders yet.</p>";
+            return;
         }
-    
-        orderContainer.innerHTML += `
-          <div class="order-item">
-            <div class="order-info">
-              <span class="order-id">#${order.id}</span>
-              <span class="order-date">${order.date}</span>
-            </div>
-    
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span class="status-badge ${badgeClass}">${order.status}</span>
-              ${actionHTML}
-            </div>
-    
-            <div class="order-price">${order.price}</div>
-          </div>
-        `;
-      });
-  }
-}
 
-/* ===============================
-   CONFIRM RECEIPT BUTTON
-================================ */
-function markAsArrived(button) {
-  const container = button.parentElement;
-  const badge = container.querySelector(".status-badge");
+        orders.forEach(order => {
+            // Determine Badge Color
+            let badgeClass = "status-pending";
+            if (order.status === "Arrived") badgeClass = "status-arrived";
+            else if (order.status === "Shipped") badgeClass = "status-shipped";
 
-  badge.innerText = "Arrived";
-  badge.classList.remove("status-shipped");
-  badge.classList.add("status-arrived");
+            // Format Date (Clean up the Java timestamp)
+            const dateObj = new Date(order.date);
+            const dateStr = dateObj.toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' });
 
-  button.remove();
-  alert("Thanks! Order marked as received.");
-}
-
-/* ===============================
-   SELL ITEM BUTTON
-================================ */
-const sellBtn = document.getElementById("sellItemBtn");
-
-if (sellBtn) {
-  sellBtn.addEventListener("click", () => {
-    window.location.href = "sellitempage.html";
-  });
+            orderContainer.innerHTML += `
+                <div class="order-item">
+                    <div class="order-info">
+                        <span class="order-id">#ORD-${order.id}</span>
+                        <span class="order-date">${dateStr}</span>
+                    </div>
+            
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="status-badge ${badgeClass}">${order.status}</span>
+                    </div>
+            
+                    <div class="order-price">RM ${order.total.toFixed(2)}</div>
+                </div>
+            `;
+        });
+    })
+    .catch(err => console.error("Error loading orders:", err));
 }

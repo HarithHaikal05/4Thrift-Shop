@@ -178,3 +178,20 @@ textarea:focus {
   transform: translateY(0);
   box-shadow: 0 6px 16px rgba(225, 6, 0, 0.3);
 }
+
+/* FIXED HOME BUTTON */
+.home-btn-fixed {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-family: 'Anton', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    z-index: 1000;
+}
+
+.home-btn-fixed:hover {
+    color: #e10600;
+}

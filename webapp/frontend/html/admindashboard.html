@@ -2,20 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>4THRIFT | Admin Dashboard</title>
+    <title>4THRIFT | Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="../css/admindashboard.css">
 </head>
 <body>
 
-    <nav class="top-nav">
-        <a href="homepage.html" class="home-link">4THRIFT</a>
-    </nav>
+    <a href="homepage.html" class="home-btn-fixed">4THRIFT</a>
 
     <div class="form-container">
         <h2>Add New Item</h2>
@@ -47,11 +41,11 @@
                         <option value="Collections">COLLECTIONS</option>
                     </select>
                 </div>
-                </div>
+            </div>
 
             <div class="input-group">
                 <label>Description</label>
-                <textarea name="description" rows="3" placeholder="Describe the vintage quality..."></textarea>
+                <textarea name="description" rows="3" placeholder="Describe quality..."></textarea>
             </div>
 
             <div class="input-group">
@@ -65,10 +59,8 @@
     </div>
 
     <script>
-        // Real-time image preview logic
         const imgInp = document.getElementById('imgInp');
         const preview = document.getElementById('preview');
-
         imgInp.onchange = evt => {
             const [file] = imgInp.files;
             if (file) {
