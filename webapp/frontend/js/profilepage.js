@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-/* ===============================
-     FETCH PROFILE DATA
+  /* ===============================
+      FETCH PROFILE DATA
   ================================ */
-  fetch("GetProfileServlet")
+  fetch("GetProfileServlet") // Ensure this path matches your servlet mapping
     .then(response => {
       if (response.status === 401) {
         throw new Error("Not logged in");
@@ -25,19 +25,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   /* ===============================
-     LOAD ORDER HISTORY
+      LOAD ORDER HISTORY
   ================================ */
   loadOrderHistory();
 
   /* ===============================
-     LOGOUT BUTTON
+      LOGOUT BUTTON LOGIC (FIXED)
   ================================ */
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
+    logoutBtn.addEventListener("click", (event) => {
+      // 1. Prevent the default link jump
+      event.preventDefault();
+
+      // 2. Clear the "Frontend" login flag
       localStorage.removeItem("isLoggedIn");
-      window.location.href = "homepage.html";
+
+      // 3. Redirect to the "Backend" Servlet to kill the session
+      // Since your HTML is in /frontend/html/ and Servlet is likely at root /
+      // We go back two folders (../../) to reach the context root.
+      window.location.href = "../../LogoutServlet";
     });
   }
 
@@ -55,40 +63,42 @@ function loadOrderHistory() {
     { id: "ORD-7793", date: "Dec 28, 2025", status: "Arrived", price: "RM 240.00" }
   ];
 
-  orderContainer.innerHTML = "";
-
-  mockOrders.forEach(order => {
-    let badgeClass = "status-pending";
-    let actionHTML = "";
-
-    if (order.status === "Arrived") {
-      badgeClass = "status-arrived";
-    } 
-    else if (order.status === "Shipped") {
-      badgeClass = "status-shipped";
-      actionHTML = `
-        <button class="confirm-btn" onclick="markAsArrived(this)">
-          Confirm Receipt
-        </button>
-      `;
-    }
-
-    orderContainer.innerHTML += `
-      <div class="order-item">
-        <div class="order-info">
-          <span class="order-id">#${order.id}</span>
-          <span class="order-date">${order.date}</span>
-        </div>
-
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span class="status-badge ${badgeClass}">${order.status}</span>
-          ${actionHTML}
-        </div>
-
-        <div class="order-price">${order.price}</div>
-      </div>
-    `;
-  });
+  if(orderContainer) {
+      orderContainer.innerHTML = "";
+    
+      mockOrders.forEach(order => {
+        let badgeClass = "status-pending";
+        let actionHTML = "";
+    
+        if (order.status === "Arrived") {
+          badgeClass = "status-arrived";
+        } 
+        else if (order.status === "Shipped") {
+          badgeClass = "status-shipped";
+          actionHTML = `
+            <button class="confirm-btn" onclick="markAsArrived(this)">
+              Confirm Receipt
+            </button>
+          `;
+        }
+    
+        orderContainer.innerHTML += `
+          <div class="order-item">
+            <div class="order-info">
+              <span class="order-id">#${order.id}</span>
+              <span class="order-date">${order.date}</span>
+            </div>
+    
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="status-badge ${badgeClass}">${order.status}</span>
+              ${actionHTML}
+            </div>
+    
+            <div class="order-price">${order.price}</div>
+          </div>
+        `;
+      });
+  }
 }
 
 /* ===============================

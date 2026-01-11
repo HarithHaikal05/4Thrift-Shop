@@ -35,39 +35,25 @@ document.addEventListener("DOMContentLoaded", () => {
   if (error) {
     box.style.display = "block";
     box.style.color = "#ff4444";
-    box.innerText = error;
+    
+    if (error === "invalid") box.innerText = "Invalid Username or Password";
+    else if (error === "server") box.innerText = "Server Error. Try again.";
+    else box.innerText = error;
 
     if (error.includes("Taken") || error.includes("Register")) {
       switchForm("signup");
     }
   } else if (msg) {
     box.style.display = "block";
-    box.style.color = "#00ff00";
+    box.style.color = "#00ff00"; // Green
     box.style.borderColor = "#00ff00";
     box.style.backgroundColor = "rgba(0,255,0,0.05)";
-    box.innerText = msg;
+    
+    if (msg === "registered") box.innerText = "Account created! Please Login.";
+    else box.innerText = msg;
   }
 
-  /* ----- LOGIN SUBMIT HANDLER ----- */
-  const loginFormEl = document.getElementById("loginForm");
-
-  if (loginFormEl) {
-    loginFormEl.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (email && password) {
-        // Save login state
-        localStorage.setItem("isLoggedIn", "true");
-
-        // Redirect to homepage
-        window.location.href = "homepage.html";
-      } else {
-        alert("Invalid login details");
-      }
-    });
-  }
-
+  // NOTE: We removed the "loginForm.addEventListener" block here.
+  // The form submission is now fully handled by the HTML <form> action 
+  // submitting to the Java Servlet.
 });

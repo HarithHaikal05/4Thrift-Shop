@@ -14,7 +14,6 @@ import com.thrift.utils.DBConnection;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -25,26 +24,21 @@ public class LoginServlet extends HttpServlet {
             Connection con = DBConnection.getConnection();
             String sql = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement ps = con.prepareStatement(sql);
-
             ps.setString(1, username);
             ps.setString(2, password);
 
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username"));
-                user.setRole(rs.getString("role"));
-
                 HttpSession session = request.getSession();
-                session.setAttribute("currentUser", user);
-
-                response.sendRedirect("frontend/html/homepage.html");
+                session.setAttribute("isLoggedIn", "true"); // Set a simple string for checking
+                session.setAttribute("username", rs.getString("username"));
+                
+                // Redirecting to homepage with a trigger parameter
+                response.sendRedirect("frontend/html/homepage.html?loginSuccess=true");
             } else {
                 response.sendRedirect("frontend/html/signupLoginpage.html?error=invalid");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("frontend/html/signupLoginpage.html?error=server");
