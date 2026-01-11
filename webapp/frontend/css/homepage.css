@@ -181,7 +181,8 @@ body {
 
 .product-card img {
   width: 100%;
-  filter: grayscale(100%);
+  filter: none; /* Shows original colors */
+  border-radius: 4px; /* Optional: Makes corners look nicer */
 }
 
 .product-card h3 {
@@ -325,6 +326,3 @@ body {
     margin: 0 auto;
   }
 }
-
-
-
