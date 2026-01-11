@@ -47,7 +47,7 @@ function loadProductsFromDB() {
 
 function renderProducts(products) {
     const container = document.getElementById("products");
-    container.innerHTML = ""; // Clear any loading text
+    container.innerHTML = ""; 
 
     if (products.length === 0) {
         container.innerHTML = "<p style='color:white; text-align:center;'>No products found in database.</p>";
@@ -55,15 +55,21 @@ function renderProducts(products) {
     }
 
     products.forEach(product => {
-        // Construct image path
         const imagePath = `../../assets/products/${product.image}`;
         
+        // Logic for stock color (Red if low, Grey if normal)
+        const stockColor = product.stock < 5 ? "#e10600" : "#888"; 
+        const stockText = product.stock > 0 ? `Stock: ${product.stock}` : "SOLD OUT";
+
         const cardHTML = `
-            <div class="product-card" data-name="${product.name}" data-category="${product.category}" data-size="${product.size}">
-                <img src="${imagePath}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x350?text=No+Image'">
-                <h3>${product.name}</h3>
-                <p>RM ${product.price.toFixed(2)}</p>
-            </div>
+            <a href="productpage.html?id=${product.id}" style="text-decoration: none; color: inherit; display: block;">
+                <div class="product-card" data-name="${product.name}" data-category="${product.category}" data-size="${product.size}">
+                    <img src="${imagePath}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x350?text=No+Image'">
+                    <h3>${product.name}</h3>
+                    <p>RM ${product.price.toFixed(2)}</p>
+                    <p style="color: ${stockColor}; font-size: 12px; margin-top: 5px;">${stockText}</p>
+                </div>
+            </a>
         `;
         container.innerHTML += cardHTML;
     });

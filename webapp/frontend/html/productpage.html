@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4THRIFT | Details</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+      body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; }
+      .navbar { padding: 20px 60px; background: #111; display: flex; align-items: center; }
+      .navbar a { color: white; text-decoration: none; margin-right: 20px; font-weight: 600; }
+      .logo { font-family: 'Anton', sans-serif; font-size: 24px; margin-right: auto; }
+      
+      .container { max-width: 900px; margin: 40px auto; display: flex; gap: 40px; padding: 20px; }
+      .left { flex: 1; }
+      .right { flex: 1; }
+      
+      img { width: 100%; border-radius: 4px; }
+      h1 { font-family: 'Anton'; font-size: 40px; margin: 0 0 10px 0; }
+      .price { color: #e10600; font-size: 24px; display: block; margin-bottom: 20px; }
+      .desc { color: #ccc; line-height: 1.5; margin-bottom: 30px; }
+      
+      .add-btn {
+          background: #e10600; color: white; border: none; padding: 15px; width: 100%;
+          font-size: 16px; font-weight: bold; cursor: pointer; text-transform: uppercase;
+      }
+      .add-btn:hover { background: #b30000; }
+      
+      @media (max-width: 768px) { .container { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="homepage.html" class="logo">4THRIFT</a>
+    <a href="homepage.html">Back</a>
+    <a href="cartpage.html">Cart</a>
+  </nav>
+
+  <div class="container" id="productContainer">
+      <p>Loading...</p>
+  </div>
+
+  <script src="../js/productpage.js"></script>
+</body>
+</html>

@@ -1,41 +1,57 @@
-const minusBtn = document.querySelector(".minus");
-const plusBtn = document.querySelector(".plus");
-const quantityEl = document.querySelector(".quantity");
-const priceEl = document.querySelector(".price");
-const itemTotalEl = document.querySelector(".itemTotal");
-const cartTotalEl = document.getElementById("cartTotal");
+document.addEventListener("DOMContentLoaded", () => {
+    loadCartFromServer();
+});
 
-let quantity = 1;
-const price = parseInt(priceEl.textContent);
-const itemName = "Vintage Denim Jacket";
-
-function updateCart() {
-  const total = quantity * price;
-
-  quantityEl.textContent = quantity;
-  itemTotalEl.textContent = total;
-  cartTotalEl.textContent = total;
-
-  // ✅ SAVE TO localStorage
-  localStorage.setItem("cartItem", JSON.stringify({
-    name: itemName,
-    price: price,
-    quantity: quantity,
-    total: total
-  }));
+function loadCartFromServer() {
+    // Call our new "Reader" Servlet
+    fetch('../../GetCartServlet')
+    .then(res => res.json())
+    .then(cartItems => {
+        renderCart(cartItems);
+    })
+    .catch(err => console.error("Error loading cart:", err));
 }
 
-plusBtn.addEventListener("click", () => {
-  quantity++;
-  updateCart();
-});
+function renderCart(items) {
+    const container = document.querySelector(".cart");
+    // Remove any old/dummy items first
+    const existingItems = document.querySelectorAll(".cart-item");
+    existingItems.forEach(el => el.remove());
 
-minusBtn.addEventListener("click", () => {
-  if (quantity > 1) {
-    quantity--;
-    updateCart();
-  }
-});
+    let total = 0;
+    
+    // We insert items after the H1 title
+    const header = container.querySelector("h1");
+    
+    if (items.length === 0) {
+        const emptyMsg = document.createElement("p");
+        emptyMsg.innerText = "Your cart is empty.";
+        emptyMsg.style.textAlign = "center";
+        emptyMsg.style.color = "#888";
+        header.after(emptyMsg);
+        document.getElementById("cartTotal").innerText = "0.00";
+        return;
+    }
 
-// Save initial state
-updateCart();
+    // Loop through JSON from Java and create HTML
+    items.forEach(item => {
+        total += item.price;
+        const imagePath = item.image ? `../../assets/products/${item.image}` : "https://via.placeholder.com/120x150";
+
+        const itemHTML = document.createElement("div");
+        itemHTML.classList.add("cart-item");
+        itemHTML.innerHTML = `
+            <img src="${imagePath}" width="120" onerror="this.src='https://via.placeholder.com/120'">
+            <div class="item-info">
+                <h3>${item.name}</h3>
+                <p>RM <span class="price">${item.price.toFixed(2)}</span></p>
+            </div>
+            <div class="item-total">
+                RM ${item.price.toFixed(2)}
+            </div>
+        `;
+        header.after(itemHTML);
+    });
+
+    document.getElementById("cartTotal").innerText = total.toFixed(2);
+}

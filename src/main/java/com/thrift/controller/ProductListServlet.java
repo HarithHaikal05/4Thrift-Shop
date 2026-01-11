@@ -15,15 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductListServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Prepare response format
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-        // 2. Get data using the DAO
         ProductDAO dao = new ProductDAO();
         List<Product> products = dao.getAllProducts();
         
-        // 3. Build JSON String manually (Array of Objects)
         PrintWriter out = response.getWriter();
         StringBuilder json = new StringBuilder();
         
@@ -37,6 +34,7 @@ public class ProductListServlet extends HttpServlet {
             json.append("\"category\":\"").append(clean(p.getCategory())).append("\",");
             json.append("\"size\":\"").append(clean(p.getSize())).append("\",");
             json.append("\"price\":").append(p.getPrice()).append(",");
+            json.append("\"stock\":").append(p.getStock()).append(","); // <--- ADDED STOCK HERE
             json.append("\"image\":\"").append(clean(p.getImageUrl())).append("\"");
             json.append("}");
             
@@ -45,15 +43,10 @@ public class ProductListServlet extends HttpServlet {
             }
         }
         json.append("]");
-        
-        // 4. Send back to Javascript
         out.print(json.toString());
-        out.flush();
     }
     
-    // Helper to prevent JSON syntax errors if strings have quotes
     private String clean(String s) {
-        if (s == null) return "";
-        return s.replace("\"", "\\\"").replace("\n", " ");
+        return s == null ? "" : s.replace("\"", "\\\"").replace("\n", " ");
     }
 }
