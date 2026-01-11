@@ -95,7 +95,6 @@ function checkLoginState() {
 function setupFilters(allProducts) {
     const searchInput = document.getElementById("searchInput");
     const typeFilter = document.getElementById("typeFilter"); 
-    const sizeFilter = document.getElementById("sizeFilter");
 
     function applyFilters() {
         // Use live DOM elements because they were created dynamically
@@ -103,7 +102,6 @@ function setupFilters(allProducts) {
         
         const keyword = searchInput.value.toLowerCase();
         const selectedType = typeFilter.value;
-        const selectedSize = sizeFilter.value;
 
         cards.forEach(card => {
             const name = card.getAttribute("data-name").toLowerCase();
@@ -124,7 +122,6 @@ function setupFilters(allProducts) {
 
     if (searchInput) searchInput.addEventListener("keyup", applyFilters);
     if (typeFilter) typeFilter.addEventListener("change", applyFilters);
-    if (sizeFilter) sizeFilter.addEventListener("change", applyFilters);
 }
 
 function goHome() {
