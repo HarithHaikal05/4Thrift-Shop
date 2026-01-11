@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/webapp/frontend/css/signupLoginpage.css">
+    <link rel="stylesheet" href="../css/signupLoginpage.css">
 </head>
 <body>
 
@@ -32,7 +32,7 @@
             </div>
 
             <div id="login-form" class="form-section active">
-                <form action="/src/main/java/com/thrift/controller/LoginServlet.java" method="POST">
+                <form action="../../LoginServlet" method="POST">
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" name="username" required autocomplete="off">
@@ -46,7 +46,7 @@
             </div>
 
             <div id="signup-form" class="form-section">
-                <form action="/src/main/java/com/thrift/controller/RegisterServlet.java" method="POST">
+                <form action="../../RegisterServlet" method="POST">
                     <div class="form-group">
                         <label>Username</label>
                         <input type="text" name="username" required autocomplete="off">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <script src="/webapp/frontend/js/signupLoginpage.js"></script>
+    <script src="../js/signupLoginpage.js"></script>
 
 </body>
 </html>

@@ -46,6 +46,6 @@ public class CheckoutServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("html/homepage.html?msg=orderPlaced");
+        response.sendRedirect("frontend/html/homepage.html?msg=orderPlaced");
     }
 }

@@ -17,6 +17,6 @@ public class LogoutServlet extends HttpServlet {
             session.invalidate();
         }
 
-        response.sendRedirect("html/signup&login.html?msg=logout");
+        response.sendRedirect("frontend/html/signupLoginpage.html?msg=logout");
     }
 }

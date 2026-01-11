@@ -32,11 +32,11 @@ public class RegisterServlet extends HttpServlet {
 
             ps.executeUpdate();
 
-            response.sendRedirect("html/signup&login.html?msg=registered");
+            response.sendRedirect("frontend/html/signupLoginpage.html?msg=registered");
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("html/signup&login.html?error=server");
+            response.sendRedirect("frontend/html/signupLoginpage.html?error=server");
         }
     }
 }

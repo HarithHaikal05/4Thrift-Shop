@@ -40,14 +40,14 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("currentUser", user);
 
-                response.sendRedirect("html/homepage.html");
+                response.sendRedirect("frontend/html/homepage.html");
             } else {
-                response.sendRedirect("html/signup&login.html?error=invalid");
+                response.sendRedirect("frontend/html/signupLoginpage.html?error=invalid");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("html/signup&login.html?error=server");
+            response.sendRedirect("frontend/html/signupLoginpage.html?error=server");
         }
     }
 }

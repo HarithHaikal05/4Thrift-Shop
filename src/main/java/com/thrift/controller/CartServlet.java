@@ -52,6 +52,6 @@ public class CartServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        response.sendRedirect("html/cartpage.html");
+        response.sendRedirect("frontend/html/cartpage.html");
     }
 }
