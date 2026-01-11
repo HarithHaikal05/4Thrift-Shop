@@ -11,7 +11,6 @@
 
     <nav>
         <a href="homepage.html" class="logo">4THRIFT</a>
-        
         <div class="nav-links">
             <a href="cartpage.html">🛒</a>
             <a href="sellitemspage.html">Sell Item</a>
@@ -31,12 +30,37 @@
         </div>
 
         <div class="history-section">
-            <h2>ORDER HISTORY</h2>
-            <div class="order-list">
-                <p>Loading orders...</p>
+            
+            <h2>PENDING ORDERS</h2>
+            <div id="pending-list" class="order-list">
+                <p>Loading...</p>
             </div>
+
+            <h2 class="section-title-completed">COMPLETED ORDERS</h2>
+            <div id="completed-list" class="order-list">
+                <p style="color:#666; font-style:italic;">No completed orders yet.</p>
+            </div>
+
         </div>
 
+    </div>
+
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">ORDER DETAILS</h2>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            
+            <div class="modal-body">
+                <div id="modal-items-list">
+                    </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="close-modal-btn" onclick="closeModal()">CLOSE</button>
+            </div>
+        </div>
     </div>
 
     <script src="../js/profilepage.js"></script>

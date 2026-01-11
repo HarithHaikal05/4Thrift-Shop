@@ -117,37 +117,21 @@ nav {
     padding-bottom: 5px;
 }
 
+.section-title-completed {
+    margin-top: 60px !important; /* Extra space before second list */
+    border-bottom-color: #444 !important; /* Grey underline for completed */
+}
+
 .order-list {
     background: #050505;
     border: 1px solid #222;
     padding: 30px;
-    min-height: 300px;
+    min-height: 150px; /* Reduced min-height since we have 2 lists now */
 }
 
 .empty-msg { color: #666; font-style: italic; margin-bottom: 20px; }
 
-.shop-btn {
-    display: inline-block;
-    background: #ff0000;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: 0.3s;
-}
-.shop-btn:hover { background: #cc0000; }
-
-/* Responsive Mobile */
-@media (max-width: 768px) {
-    .profile-container { flex-direction: column; padding: 20px; }
-    nav { padding: 20px; }
-}
-
-/* --- ORDER HISTORY STATUS BADGES --- */
-
-/* The row for each order */
+/* ORDER ITEM ROW */
 .order-item {
     display: flex;
     justify-content: space-between;
@@ -156,9 +140,7 @@ nav {
     border-bottom: 1px solid #222;
 }
 
-.order-item:last-child {
-    border-bottom: none;
-}
+.order-item:last-child { border-bottom: none; }
 
 .order-info {
     display: flex;
@@ -177,7 +159,18 @@ nav {
     margin-top: 4px;
 }
 
-/* STATUS BADGES */
+.order-price {
+    font-family: 'Anton', sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-left: 20px;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* --- BADGES & BUTTONS --- */
+
+/* 1. Status Badge (Small text like "PENDING") */
 .status-badge {
     padding: 5px 10px;
     font-size: 0.75rem;
@@ -185,47 +178,165 @@ nav {
     font-weight: bold;
     border-radius: 4px;
 }
+.status-pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; border: 1px solid #ffc107; }
+.status-shipped { background: rgba(0, 123, 255, 0.2); color: #007bff; border: 1px solid #007bff; }
+.status-arrived { background: rgba(40, 167, 69, 0.2); color: #28a745; border: 1px solid #28a745; }
 
-.status-arrived {
-    background: rgba(40, 167, 69, 0.2); /* Green Background */
-    color: #28a745; /* Green Text */
-    border: 1px solid #28a745;
-}
-
-.status-shipped {
-    background: rgba(0, 123, 255, 0.2); /* Blue Background */
-    color: #007bff; /* Blue Text */
-    border: 1px solid #007bff;
-}
-
-.status-pending {
-    background: rgba(255, 193, 7, 0.2); /* Yellow Background */
-    color: #ffc107; /* Yellow Text */
-    border: 1px solid #ffc107;
-}
-
-.order-price {
-    font-family: 'Anton', sans-serif;
-    color: #fff;
-    font-size: 1.2rem;
-    margin-left: 20px;
-}
-/* --- NEW: CONFIRM RECEIPT BUTTON --- */
-.confirm-btn {
-    background-color: #ff0000;
+/* 2. Received Button (Green Action Button) */
+.received-btn {
+    background-color: #28a745; 
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 16px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
     border-radius: 4px;
-    margin-left: 15px; /* Space between badge and button */
-    transition: background-color 0.3s;
+    letter-spacing: 1px;
+    transition: 0.2s;
+}
+.received-btn:hover { background-color: #218838; }
+
+/* 3. Completed Badge (Grey Static Badge) */
+.completed-badge {
+    background: #222;
+    color: #888;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid #444;
 }
 
-.confirm-btn:hover {
-    background-color: #cc0000;
+/* 4. View Items Button (Outline) */
+.view-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #aaa;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+.view-btn:hover {
+    border-color: #fff;
+    color: #fff;
+}
+
+/* --- MODAL (POPUP) STYLES --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background */
+    backdrop-filter: blur(5px); /* Blur effect */
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: #0a0a0a;
+    margin: 5% auto; 
+    width: 90%;
+    max-width: 600px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-header h2 { margin: 0; font-size: 1.5rem; letter-spacing: 2px; color: #fff; }
+
+.close-btn {
+    color: #888;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.close-btn:hover { color: #e10600; }
+
+/* Modal Body */
+.modal-body {
+    padding: 0 30px;
+    overflow-y: auto;
+}
+
+/* Modal Items */
+.modal-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #222;
+}
+.modal-item:last-child { border-bottom: none; }
+
+.modal-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #333;
+    margin-right: 20px;
+}
+
+.modal-info { flex: 1; }
+.modal-info h4 { margin: 0 0 5px 0; color: #fff; font-size: 1rem; }
+.modal-info p { margin: 0; color: #888; font-size: 0.85rem; }
+
+.modal-price {
+    text-align: right;
+    font-family: 'Anton', sans-serif;
+    color: #fff;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #222;
+    text-align: right;
+}
+
+.close-modal-btn {
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.close-modal-btn:hover { background: #333; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-container { flex-direction: column; padding: 20px; }
+    nav { padding: 20px; }
+    .order-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .order-price { text-align: left; margin-left: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
