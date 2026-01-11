@@ -18,7 +18,6 @@
 
     <div class="search-wrapper">
       <input type="text" id="searchInput" placeholder="Search items or categories" />
-      <button id="searchBtn">search</button>
     </div>
 
     <div class="nav-actions">
@@ -35,6 +34,15 @@
       <button class="cta-btn" id="shopNowBtn">SHOP NOW</button>
     </div>
   </section>
+
+  <script>
+  document.getElementById("shopNowBtn").addEventListener("click", function () {
+    document.getElementById("products").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+</script>
+
 
   <section class="filter-bar">
     <select id="sizeFilter">

@@ -75,16 +75,6 @@ body {
   font-size: 14px;
 }
 
-.search-wrapper button {
-  padding: 10px 16px;
-  background: #e10600;
-  color:#fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 999px; /* match input */
-  font-size: 14px;
-}
-
 /* PRODUCT GRID FRAME */
 .product-card {
   background: #111;

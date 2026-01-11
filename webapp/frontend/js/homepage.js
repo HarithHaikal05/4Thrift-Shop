@@ -25,8 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function loadProductsFromDB() {
     console.log("Attempting to fetch products from Servlet...");
 
-    // Pointing to the Servlet we just created.
-    // Since html is in /frontend/html, we go up two levels (../../) to find the servlet mapping
     fetch('../../ProductListServlet')
     .then(response => {
         if (!response.ok) {
@@ -96,7 +94,6 @@ function checkLoginState() {
 
 function setupFilters(allProducts) {
     const searchInput = document.getElementById("searchInput");
-    const searchBtn = document.getElementById("searchBtn");
     const typeFilter = document.getElementById("typeFilter"); 
     const sizeFilter = document.getElementById("sizeFilter");
 
@@ -125,7 +122,6 @@ function setupFilters(allProducts) {
         });
     }
 
-    if (searchBtn) searchBtn.addEventListener("click", applyFilters);
     if (searchInput) searchInput.addEventListener("keyup", applyFilters);
     if (typeFilter) typeFilter.addEventListener("change", applyFilters);
     if (sizeFilter) sizeFilter.addEventListener("change", applyFilters);
