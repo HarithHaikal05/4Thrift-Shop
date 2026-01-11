@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-
 import com.thrift.model.User;
 import com.thrift.utils.DBConnection;
 
@@ -20,8 +18,7 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        try {
-            Connection con = DBConnection.getConnection();
+        try (Connection con = DBConnection.getConnection()) {
             String sql = "SELECT * FROM users WHERE username=? AND password=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
@@ -31,10 +28,18 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 HttpSession session = request.getSession();
-                session.setAttribute("isLoggedIn", "true"); // Set a simple string for checking
-                session.setAttribute("username", rs.getString("username"));
                 
-                // Redirecting to homepage with a trigger parameter
+                // 1. Create the User Object
+                User user = new User();
+                user.setId(rs.getInt("id")); // Critical for orders!
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(rs.getString("role"));
+
+                // 2. Save the User Object to Session
+                session.setAttribute("currentUser", user); 
+                session.setAttribute("isLoggedIn", "true");
+                
                 response.sendRedirect("frontend/html/homepage.html?loginSuccess=true");
             } else {
                 response.sendRedirect("frontend/html/signupLoginpage.html?error=invalid");

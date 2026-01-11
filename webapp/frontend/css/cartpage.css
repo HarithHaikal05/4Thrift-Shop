@@ -62,25 +62,74 @@ body {
   margin-bottom: 40px;
 }
 
-/* CART ITEM */
+/* ... (Keep other CSS the same) ... */
+
+/* CART ITEM CONTAINER */
 .cart-item {
   display: flex;
   align-items: center;
-  gap: 30px;
+  /* Use space-between to push image/info left and total right */
+  justify-content: space-between; 
   border-bottom: 1px solid #333;
   padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .cart-item img {
-  filter: grayscale(100%);
+  width: 100px;
+  border-radius: 4px;
+  object-fit: cover;
+  margin-right: 20px;
 }
 
-.item-info h3 {
+/* ITEM INFO (Name, Size, Price) */
+.item-info {
+  flex: 2; /* Takes up available space */
+  text-align: left;
+}
+
+/* QUANTITY BUTTONS (The Fix) */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Keeps buttons close to the number */
+  margin: 0 40px; /* Adds space around the whole group */
+  background: #111; /* Optional: darker background for the group */
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #333;
+}
+
+.quantity-control button {
+  background: #333;
+  border: none;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.quantity-control button:hover {
+  background: #e10600; /* Red on hover */
+}
+
+.quantity-control .quantity {
   font-size: 16px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
 }
 
-.item-info p {
-  color: #e10600;
+.item-total {
+  flex: 1;
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  color: #fff;
 }
 
 /* QUANTITY */

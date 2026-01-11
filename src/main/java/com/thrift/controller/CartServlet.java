@@ -16,20 +16,19 @@ public class CartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1. Get Product ID from the form
         String idParam = request.getParameter("productId");
+        String selectedSize = request.getParameter("selectedSize"); // <--- CAPTURE SIZE
+
         if(idParam == null) {
             response.sendRedirect("frontend/html/homepage.html");
             return;
         }
         int productId = Integer.parseInt(idParam);
 
-        // 2. Get or Create Cart in Session
         HttpSession session = request.getSession();
         ArrayList<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
         if (cart == null) cart = new ArrayList<>();
 
-        // 3. Look up Product in DB
         try (Connection con = DBConnection.getConnection()) {
             String sql = "SELECT * FROM products WHERE id=?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -41,8 +40,14 @@ public class CartServlet extends HttpServlet {
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setPrice(rs.getDouble("price"));
-                p.setImageUrl(rs.getString("image_url")); // <--- CRITICAL: Save image
-                p.setSize(rs.getString("size"));
+                p.setImageUrl(rs.getString("image_url"));
+                
+                // IMPORTANT: We overwrite the DB size with the User's choice
+                if (selectedSize != null && !selectedSize.isEmpty()) {
+                    p.setSize(selectedSize); 
+                } else {
+                    p.setSize(rs.getString("size")); // Fallback
+                }
                 
                 cart.add(p);
             }
@@ -51,7 +56,6 @@ public class CartServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        // 4. Redirect to Cart Page
         response.sendRedirect("frontend/html/cartpage.html");
     }
 }
