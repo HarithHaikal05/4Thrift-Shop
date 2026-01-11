@@ -18,11 +18,11 @@ body {
 
 /* 3. NAVIGATION BAR */
 nav {
-    padding: 20px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #000;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00000000;
 }
 
 .logo {

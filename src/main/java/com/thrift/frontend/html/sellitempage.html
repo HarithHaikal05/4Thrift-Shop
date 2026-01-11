@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sell Item</title>
+  <link rel="stylesheet" href="sellitem.css">
+</head>
+<body>
+
+<h2>Sell an Item</h2>
+
+<form id="sellForm">
+  <input type="text" id="itemName" placeholder="Item name" required />
+  <input type="number" id="itemPrice" placeholder="Price (RM)" required />
+  <input type="text" id="itemSize" placeholder="Size (S / M / L)" />
+  
+  <select id="itemCategory" required>
+    <option value="">Select Category</option>
+    <option value="tops">Tops</option>
+    <option value="pants">Pants</option>
+    <option value="shoes">Shoes</option>
+    <option value="accessories">Accessories</option>
+  </select>
+
+  <textarea id="itemDesc" placeholder="Description"></textarea>
+
+  <input type="file" id="itemImage" accept="image/*" required />
+
+  <button type="submit">Post Item</button>
+</form>
+
+<script src="sellitem.js"></script>
+</body>
+</html>
