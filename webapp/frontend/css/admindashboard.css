@@ -21,6 +21,29 @@ body {
 }
 
 /* ===============================
+   NEW: HOME BUTTON (TOP LEFT)
+================================ */
+.top-nav {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+.home-link {
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.home-link:hover {
+  opacity: 0.7;
+}
+
+/* ===============================
    FORM CONTAINER
 ================================ */
 .form-container {
@@ -31,6 +54,8 @@ body {
   border: 1px solid var(--border-color);
   border-radius: 6px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  /* Added margin top to ensure it doesn't overlap nav on small screens */
+  margin-top: 20px; 
 }
 
 /* ===============================

@@ -10,13 +10,12 @@ import java.util.List;
 
 public class ProductDAO {
 
-    // 1. ADD PRODUCT (Used by Admin)
+    // 1. ADD PRODUCT
     public boolean addProduct(Product p) {
         String sql = "INSERT INTO products (name, description, price, size, category, image_url, stock) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
             ps.setString(1, p.getName());
             ps.setString(2, p.getDescription());
             ps.setDouble(3, p.getPrice());
@@ -25,23 +24,21 @@ public class ProductDAO {
             ps.setString(6, p.getImageUrl());
             ps.setInt(7, p.getStock());
 
-            int result = ps.executeUpdate();
-            return result > 0;
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    // 2. GET ALL PRODUCTS (New method for Homepage)
+    // 2. GET ALL PRODUCTS
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT * FROM products ORDER BY id DESC"; // Newest first
+        String sql = "SELECT * FROM products ORDER BY id DESC"; 
 
-        try {
-            Connection conn = DBConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Product p = new Product();
@@ -60,5 +57,20 @@ public class ProductDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    // 3. DECREMENT STOCK (New Method)
+    public void decrementStock(int productId) {
+        String sql = "UPDATE products SET stock = stock - 1 WHERE id = ? AND stock > 0";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+            System.out.println("Stock decremented for Product ID: " + productId);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
