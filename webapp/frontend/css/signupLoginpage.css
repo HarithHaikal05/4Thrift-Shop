@@ -26,12 +26,15 @@ nav {
 }
 
 .logo {
-    font-family: 'Anton', sans-serif;
-    font-size: 2rem;
-    letter-spacing: 1px;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  line-height: 1;
+  margin-top: 7px;
+  margin-left: 10px;
 }
 
 .nav-links a {
