@@ -35,7 +35,8 @@ public class CheckoutServlet extends HttpServlet {
         }
         
         // If user is not logged in properly, force login
-        if (user == null) {
+        // IMPORTANT: You must log out and log back in so the session has the User ID.
+        if (user == null || user.getId() == 0) {
             response.sendRedirect("frontend/html/signupLoginpage.html");
             return; 
         }
@@ -47,54 +48,66 @@ public class CheckoutServlet extends HttpServlet {
         }
 
         try (Connection con = DBConnection.getConnection()) {
-            // 2. INSERT INTO 'orders' TABLE
-            // We ask the DB to return the generated ID so we can use it next
-            String sqlOrder = "INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, 'Paid')";
-            PreparedStatement psOrder = con.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
-            psOrder.setInt(1, user.getId());
-            psOrder.setDouble(2, total);
-            psOrder.executeUpdate();
+            // Turn off auto-commit for transaction safety
+            con.setAutoCommit(false);
 
-            // Get the new Order ID (e.g., Order #5)
-            ResultSet rs = psOrder.getGeneratedKeys();
-            int newOrderId = 0;
-            if (rs.next()) {
-                newOrderId = rs.getInt(1);
-            }
+            try {
+                // 2. INSERT INTO 'orders' TABLE
+                String sqlOrder = "INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, 'Paid')";
+                PreparedStatement psOrder = con.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
+                psOrder.setInt(1, user.getId());
+                psOrder.setDouble(2, total);
+                psOrder.executeUpdate();
 
-            // 3. INSERT INTO 'order_items' TABLE
-            // We save the product name and price *at time of purchase* String sqlItem = "INSERT INTO order_items (order_id, product_id, product_name, size, quantity, price_at_purchase) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement psItem = con.prepareStatement(sqlItem);
+                // Get the new Order ID
+                ResultSet rs = psOrder.getGeneratedKeys();
+                int newOrderId = 0;
+                if (rs.next()) {
+                    newOrderId = rs.getInt(1);
+                }
 
-            ProductDAO dao = new ProductDAO();
+                // 3. INSERT INTO 'order_items' TABLE
+                // FIXED SYNTAX ERROR HERE
+                String sqlItem = "INSERT INTO order_items (order_id, product_id, product_name, size, quantity, price_at_purchase) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement psItem = con.prepareStatement(sqlItem);
 
-            for (Product p : cart) {
-                psItem.setInt(1, newOrderId);
-                psItem.setInt(2, p.getId());
-                psItem.setString(3, p.getName());
-                psItem.setString(4, p.getSize()); // Saves "S", "M", etc.
-                psItem.setInt(5, 1); // Quantity is 1 for now
-                psItem.setDouble(6, p.getPrice());
+                ProductDAO dao = new ProductDAO();
+
+                for (Product p : cart) {
+                    psItem.setInt(1, newOrderId);
+                    psItem.setInt(2, p.getId());
+                    psItem.setString(3, p.getName());
+                    psItem.setString(4, p.getSize());
+                    psItem.setInt(5, 1); // Quantity is 1 per row in the session list
+                    psItem.setDouble(6, p.getPrice());
+                    
+                    psItem.addBatch();
+
+                    // 4. DECREMENT STOCK
+                    dao.decrementStock(p.getId());
+                }
+
+                // Execute all inserts
+                psItem.executeBatch();
                 
-                // Add to batch for faster processing
-                psItem.addBatch();
+                // Commit transaction
+                con.commit();
 
-                // 4. DECREMENT STOCK
-                dao.decrementStock(p.getId());
+                // 5. SUCCESS: Clear cart
+                session.removeAttribute("cart");
+                response.sendRedirect("frontend/html/homepage.html?msg=orderPlaced");
+
+            } catch (Exception ex) {
+                con.rollback(); // Undo changes if something went wrong
+                throw ex;
+            } finally {
+                con.setAutoCommit(true);
             }
-
-            // Execute all inserts
-            psItem.executeBatch();
-
-            // 5. SUCCESS: Clear cart
-            session.removeAttribute("cart");
-            
-            // Redirect to home
-            response.sendRedirect("frontend/html/homepage.html?msg=orderPlaced");
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("frontend/html/cartpage.html?error=failed");
+            // Redirect with error message so you know it failed
+            response.sendRedirect("frontend/html/cartpage.html?error=checkoutFailed");
         }
     }
 }
